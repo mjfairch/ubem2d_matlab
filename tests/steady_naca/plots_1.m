@@ -1,6 +1,7 @@
 if (~exist('plots','dir'))
     mkdir('plots');
 end
+addpath('../../') % for saveTightFigure
 % Identify test cases
 data = load('data/cases.txt');
 nbodies = length(data(1,:));

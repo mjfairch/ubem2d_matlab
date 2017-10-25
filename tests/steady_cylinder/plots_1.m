@@ -1,6 +1,7 @@
 if (~exist('plots','dir'))
     mkdir('plots');
 end
+addpath('../../') % for saveTightFigure
 % Plot body
 data = load('data/cylinder_body.txt');
 x = data(:,1);
