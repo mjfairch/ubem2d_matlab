@@ -65,6 +65,27 @@ fprintf('Efficiency = %g\n',sum(Eout(I))./sum(Ein(I)));
 
 figure;
 hold on;
+subplot(3,1,1);
+plot(t,alp,'LineWidth',1.5);
+ylabel('$\alpha$','Interpreter','latex');
+title('Kinematics','Interpreter','latex');
+set(gca,'FontSize',14);
+grid on;
+subplot(3,1,2);
+plot(t,x/f.chord,'LineWidth',1.5);
+ylabel('$x/c$','Interpreter','latex');
+set(gca,'FontSize',14);
+grid on;
+subplot(3,1,3);
+plot(t,y/f.chord,'LineWidth',1.5);
+ylabel('$y/c$', 'Interpreter', 'latex');
+xlabel('$t/T$','Interpreter','latex');
+set(gca,'FontSize',14);
+grid on;
+saveas(gcf,'plots/kinematics.pdf');
+
+figure;
+hold on;
 fill(f.x/f.chord,f.y/f.chord,[.9 .9 .9]);
 xlabel('$x/c$','Interpreter','latex');
 ylabel('$y/c$','Interpreter','latex');
