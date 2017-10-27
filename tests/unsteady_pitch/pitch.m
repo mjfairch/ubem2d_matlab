@@ -79,6 +79,7 @@ plot(cx,cy,'sk','MarkerSize',16);
 set(gca,'FontSize',14);
 axis('equal');
 grid on;
+saveTightFigure('plots/wake.pdf');
 
 figure;
 hold on;
@@ -87,3 +88,4 @@ xlabel('$t/T$','Interpreter','latex');
 legend({'$C_L$','$C_M$','$10 C_D$'},'Interpreter','latex');
 set(gca,'FontSize',14);
 grid on;
+saveTightFigure('plots/aerodynamic_coefficients.pdf');
