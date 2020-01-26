@@ -1,13 +1,13 @@
 addpath('../../');
 
 % User input: airfoil, onset flow, kinematics
-f = foil_naca4('0012',50,true);
+f = foil_naca4('0012',100,true);
 Uinf = [1,0];           % onset flow
 f.setPitchAxisOnChordLine(0);   % pitch position as fraction of chord: 0=LE, 1=TE
 k = 1;                  % reduced frequency
 alpmax = 2.5*pi/180;    % max angle of attack
-nosc = 3;               % number of oscillations
-res = 50;               % number of steps at fastest time scale
+nosc = 4;               % number of oscillations
+res = 100;               % number of steps at fastest time scale
 
 % Kinematics
 spdinf = norm(Uinf);
@@ -87,8 +87,8 @@ saveas(gcf,'plots/kinematics.pdf');
 figure;
 hold on;
 fill(f.x/f.chord,f.y/f.chord,[.9 .9 .9]);
-xlabel('$x/c$','Interpreter','latex');
-ylabel('$y/c$','Interpreter','latex');
+%xlabel('$x/c$','Interpreter','latex');
+%ylabel('$y/c$','Interpreter','latex');
 ip = find(stepper.wake.nu > 0);
 in = find(stepper.wake.nu < 0);
 plot(stepper.wake.x(ip)/f.chord,stepper.wake.y(ip)/f.chord,'.r',...
@@ -99,7 +99,7 @@ plot(stepper.wake.x(in)/f.chord,stepper.wake.y(in)/f.chord,'.b',...
 plot(cx,cy,'sk','MarkerSize',16);
 set(gca,'FontSize',14);
 axis('equal');
-grid on;
+%grid on;
 saveTightFigure('plots/wake.pdf');
 
 figure;
@@ -110,3 +110,32 @@ legend({'$C_L$','$C_M$','$10 C_D$'},'Interpreter','latex');
 set(gca,'FontSize',14);
 grid on;
 saveTightFigure('plots/aerodynamic_coefficients.pdf');
+
+%-------------------------------------------------------------
+% Wall picture
+%-------------------------------------------------------------
+figure;
+subplot(2,1,1);
+hold on;
+fill(-f.x/f.chord,f.y/f.chord,[.75 .75 .75]);
+text(-4.25,-1,'{\it Pitch oscillations about the leading edge of a NACA 0012 airfoil}');
+text(-4.00,-1.2,'{\it Michael J. Fairchild, Princeton University, 2016}');
+ip = find(stepper.wake.nu > 0);
+in = find(stepper.wake.nu < 0);
+plot(-stepper.wake.x(ip)/f.chord,stepper.wake.y(ip)/f.chord,'.r',...
+    'MarkerSize',10);
+plot(-stepper.wake.x(in)/f.chord,stepper.wake.y(in)/f.chord,'.b',...
+    'MarkerSize',10);
+set(gca,'FontSize',14);
+axis('equal');
+axis('off');
+
+subplot(2,1,2);
+hold on;
+tt=t(I)/T;
+plot(tt,CL(I),'k-',tt,CM(I),'k--',tt,10*CD(I),'k-.','LineWidth',1.5);
+text(4.05,1.25,'$C_L$','Interpreter','Latex','FontSize',14);
+text(4.05,0.25,'$C_M$','Interpreter','Latex','FontSize',14);
+text(4.05,-.75,'$C_D$','Interpreter','Latex','FontSize',14);
+axis('off');
+saveas(gca, 'plots/naca0012pitch.pdf');
