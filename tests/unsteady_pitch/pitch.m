@@ -118,8 +118,8 @@ figure;
 subplot(2,1,1);
 hold on;
 fill(-f.x/f.chord,f.y/f.chord,[.75 .75 .75]);
-text(-4.25,-1,'{\it Pitch oscillations about the leading edge of a NACA 0012 airfoil}');
-text(-4.00,-1.2,'{\it Michael J. Fairchild, Princeton University, 2016}');
+text(-4.25,-1,'{\it Pitch oscillations about the leading edge of a NACA 0012 airfoil}','FontSize',14);
+text(-4.00,-1.2,'{\it Michael J. Fairchild, Princeton University, 2016}','FontSize',14);
 ip = find(stepper.wake.nu > 0);
 in = find(stepper.wake.nu < 0);
 plot(-stepper.wake.x(ip)/f.chord,stepper.wake.y(ip)/f.chord,'.r',...
